@@ -35,7 +35,7 @@ project.ext {
     //
     // The storeFile location can be a relative or absolute filename.
     // https://docs.gradle.org/current/userguide/working_with_files.html
-    APP_ID = "com.example.billingsample"
+    APP_ID = "com.tune.example.billingsample"
     TEST_APP_ID = APP_ID + ".test"
 
     KEYSTORE_STORE_FILE = rootProject.file(keystoreProperties['storeFile'])
@@ -44,9 +44,9 @@ project.ext {
     KEYSTORE_KEY_PASSWORD = keystoreProperties['keyPassword']
 
     MINIMUM_SDK_VERSION = 14
-    TARGET_SDK_VERSION = 26
-    TOOLS_VERSION = "26.0.2"
-    SUPPORT_VERSION = "26.0.2"
+    TARGET_SDK_VERSION = 27
+    TOOLS_VERSION = "27.0.3"
+    SUPPORT_VERSION = "27.1.1"
 
     FEATURE_VERSION_CODE = 1
     FEATURE_VERSION_NAME = "1.01"
@@ -67,7 +67,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-beta7'
+        classpath 'com.android.tools.build:gradle:3.1.3'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
