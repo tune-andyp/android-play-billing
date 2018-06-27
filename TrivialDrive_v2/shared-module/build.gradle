@@ -40,6 +40,8 @@ dependencies {
     api "com.android.support:recyclerview-v7:$project.SUPPORT_VERSION"
     api "com.android.support:support-annotations:$project.SUPPORT_VERSION"
 
+    api 'com.tune:tune-marketing-console-sdk:5.3.0'
+
     androidTestImplementation 'com.android.support.test:testing-support-lib:0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     testImplementation 'junit:junit:4.12'

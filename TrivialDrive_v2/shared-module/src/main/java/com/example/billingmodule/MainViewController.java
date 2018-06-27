@@ -16,11 +16,10 @@
 
 package com.example.billingmodule;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.content.SharedPreferences;
 import android.support.annotation.DrawableRes;
 import android.util.Log;
+
 import com.android.billingclient.api.BillingClient.BillingResponse;
 import com.android.billingclient.api.Purchase;
 import com.example.billingmodule.billing.BillingManager.BillingUpdatesListener;
@@ -28,7 +27,13 @@ import com.example.billingmodule.skulist.row.GasDelegate;
 import com.example.billingmodule.skulist.row.GoldMonthlyDelegate;
 import com.example.billingmodule.skulist.row.GoldYearlyDelegate;
 import com.example.billingmodule.skulist.row.PremiumDelegate;
+import com.tune.Tune;
+import com.tune.TuneEvent;
+
+import java.util.Date;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Handles control logic of the BaseGamePlayActivity
@@ -145,6 +150,18 @@ public class MainViewController {
                         break;
                     case GasDelegate.SKU_ID:
                         Log.d(TAG, "We have gas. Consuming it.");
+
+                        // Measure the gas purchase event with TUNE
+                        TuneEvent purchaseEvent = new TuneEvent(TuneEvent.PURCHASE)
+                                // Parse revenue and currency somehow - may require app dev to lookup
+//                                .withRevenue(revenue)
+//                                .withCurrencyCode(currencyCode)
+                                .withContentId(purchase.getSku())
+                                .withAdvertiserRefId(purchase.getOrderId())
+                                .withDate1(new Date(purchase.getPurchaseTime()))
+                                .withReceipt(purchase.getOriginalJson(), purchase.getSignature());
+                        Tune.getInstance().measureEvent(purchaseEvent);
+
                         // We should consume the purchase and fill up the tank once it was consumed
                         mActivity.getBillingManager().consumeAsync(purchase.getPurchaseToken());
                         break;
