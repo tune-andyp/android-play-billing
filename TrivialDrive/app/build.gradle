@@ -2,36 +2,48 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        /* TODO(developer): Configure to sign app with a release key for testing.
         release {
-            storeFile file('path/to/release/signing/key')
-            keyAlias 'release_key_alias'
-            keyPassword "${password}"
-            storePassword "${password}"
-        }*/
+            storeFile project.KEYSTORE_STORE_FILE
+            storePassword project.KEYSTORE_STORE_PASSWORD
+            keyAlias project.KEYSTORE_KEY_ALIAS
+            keyPassword project.KEYSTORE_KEY_PASSWORD
+        }
     }
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+
+    compileSdkVersion Integer.valueOf(project.TARGET_SDK_VERSION)
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
-        applicationId "com.example.android.trivialdrivesample"
-        minSdkVersion 14
-        targetSdkVersion 23
-        versionCode 7
-        versionName "1.5"
+        applicationId project.APP_ID
+        minSdkVersion Integer.valueOf(project.MINIMUM_SDK_VERSION)
+        targetSdkVersion project.TARGET_SDK_VERSION
+        versionCode Integer.valueOf(MOBILE_VERSION_CODE)
+        versionName MOBILE_VERSION_NAME
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
-        release {
+        // Google Play Billing APIs only work with apps signed for production.
+        debug {
+            signingConfig signingConfigs.release
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            // TODO(developer): uncomment below once config above is complete and uncommented.
-            // signingConfig signingConfigs.release
+        }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.0.1'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+
+    // Tune
+    api 'com.tune:tune-marketing-console-sdk:5.3.0'
+    implementation 'com.google.firebase:firebase-messaging:17.1.0'
+    implementation 'com.google.android.gms:play-services-gcm:15.0.1'
 }
