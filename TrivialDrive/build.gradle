@@ -24,8 +24,8 @@ project.ext {
     TOOLS_VERSION = "27.0.3"
     SUPPORT_VERSION = "27.1.1"
 
-    MOBILE_VERSION_CODE = 1
-    MOBILE_VERSION_NAME = "1.1"
+    MOBILE_VERSION_CODE = 2
+    MOBILE_VERSION_NAME = "1.2"
 }
 
 buildscript {

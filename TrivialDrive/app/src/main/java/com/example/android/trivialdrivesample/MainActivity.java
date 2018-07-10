@@ -37,8 +37,11 @@ import com.example.android.trivialdrivesample.util.IabHelper.IabAsyncInProgressE
 import com.example.android.trivialdrivesample.util.IabResult;
 import com.example.android.trivialdrivesample.util.Inventory;
 import com.example.android.trivialdrivesample.util.Purchase;
+import com.tune.Tune;
+import com.tune.TuneEvent;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -509,6 +512,17 @@ public class MainActivity extends Activity implements IabBroadcastListener,
             }
 
             Log.d(TAG, "Purchase successful.");
+
+            // Measure the purchase event with TUNE
+            TuneEvent purchaseEvent = new TuneEvent(TuneEvent.PURCHASE)
+                    // Parse revenue and currency somehow - may require app dev to lookup
+//                  .withRevenue(revenue)
+//                  .withCurrencyCode(currencyCode)
+                    .withContentId(purchase.getSku())
+                    .withAdvertiserRefId(purchase.getOrderId())
+                    .withDate1(new Date(purchase.getPurchaseTime()))
+                    .withReceipt(purchase.getOriginalJson(), purchase.getSignature());
+            Tune.getInstance().measureEvent(purchaseEvent);
 
             if (purchase.getSku().equals(SKU_GAS)) {
                 // bought 1/4 tank of gas. So consume it.
