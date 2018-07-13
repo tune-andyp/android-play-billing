@@ -142,7 +142,10 @@ public class MainViewController {
             mGoldMonthly = false;
             mGoldYearly = false;
 
+            int i = 1;
             for (Purchase purchase : purchaseList) {
+                Log.d(TAG, "Purchase" + i++ + ": " + purchase.toString());
+
                 switch (purchase.getSku()) {
                     case PremiumDelegate.SKU_ID:
                         Log.d(TAG, "You are Premium! Congratulations!!!");
@@ -152,8 +155,8 @@ public class MainViewController {
                         Log.d(TAG, "We have gas. Consuming it.");
 
                         // Measure the gas purchase event with TUNE
+                        // Note: Obtain the price and currency code from SkuRowData
                         TuneEvent purchaseEvent = new TuneEvent(TuneEvent.PURCHASE)
-                                // Parse revenue and currency somehow - may require app dev to lookup
 //                                .withRevenue(revenue)
 //                                .withCurrencyCode(currencyCode)
                                 .withContentId(purchase.getSku())

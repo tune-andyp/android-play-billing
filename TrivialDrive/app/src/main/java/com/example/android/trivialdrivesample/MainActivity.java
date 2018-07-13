@@ -513,9 +513,9 @@ public class MainActivity extends Activity implements IabBroadcastListener,
 
             Log.d(TAG, "Purchase successful.");
 
-            // Measure the purchase event with TUNE
+            // Measure the gas purchase event with TUNE
+            // Note: Obtain the price and currency code from SkuDetails
             TuneEvent purchaseEvent = new TuneEvent(TuneEvent.PURCHASE)
-                    // Parse revenue and currency somehow - may require app dev to lookup
 //                  .withRevenue(revenue)
 //                  .withCurrencyCode(currencyCode)
                     .withContentId(purchase.getSku())
